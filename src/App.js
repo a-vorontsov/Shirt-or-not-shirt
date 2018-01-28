@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import './App.css';
 const request = require('superagent');
+const Spinner = require('react-spinkit');
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shirt: ""
+      shirt: "",
+      spinner: false,
+      title: true,
+      image: ""
     }
     this.onImage = this.onImage.bind(this);
     this.getPrediction = this.getPrediction.bind(this);
+    this.onReset = this.onReset.bind(this);
   }
   async getPrediction(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const target = e.target;
+      this.setState({image: target.result});
+    }
+    reader.readAsDataURL(file);
+    this.setState({
+      spinner: true,
+      title: false
+    });
     const req = request
-      .post('https://southcentralus.api.cognitive.microsoft.com/customvision/v1.1/Prediction/faec218d-a294-4b22-9e35-4dd925c0ba7c/image')
+      .post('https://southcentralus.api.cognitive.microsoft.com/customvision/v1.1/Prediction/faec218d-a294-4b22-9e35-4dd925c0ba7c/image?iterationId=bebf8572-bd1d-448d-8821-2384294bc375')
       .set('Prediction-Key', '143515aaa0e343e1918dce96217a6d34')
       .set("Accept", "application/json")
       .set("Content-type", "multipart/form-data");
@@ -26,7 +41,16 @@ export default class App extends Component {
       prediction = "Not Shirt"
     }
     this.setState({
-      shirt: prediction
+      shirt: prediction,
+      spinner: false
+    });
+  }
+  onReset(event) {
+    event.preventDefault();
+    this.setState({
+      shirt: "",
+      title: true,
+      image: ""
     });
   }
   onImage(event) {
@@ -39,18 +63,56 @@ export default class App extends Component {
     return (
       <div>
         <div>
-          <label htmlFor={"camera"}>
-            <div className="container">
-              <div className="btn btn--camera">
-                <h3 className="title-text">
-                  <img src="https://png.icons8.com/small/50/000000/t-shirt.png"/><br/>OR NOT<br/><img src="https://png.icons8.com/small/50/000000/t-shirt.png"/>
-                </h3>
-              </div>
-            </div>
-          </label>
-        {
-          this.state.shirt
-        }
+          {
+            (() => {
+              if (!!this.state.title) {
+                return (
+                  <label htmlFor={"camera"}>
+                    <div className="container">
+                      <div className="btn btn--camera">
+                        <h3 className="title-text">
+                          <img src="https://png.icons8.com/small/50/000000/t-shirt.png" alt="icon"/><br/>OR NOT<br/><img src="https://png.icons8.com/small/50/000000/t-shirt.png" alt="icon"/>
+                        </h3>
+                      </div>
+                    </div>
+                  </label>
+                )
+              }
+            })()
+          }
+          {
+            (() => {
+              if (this.state.image !== "") {
+                return <img className="image" alt="Camera" src={this.state.image}/>
+              }
+            })()
+          }
+          {
+            (() => {
+              if (!!this.state.spinner) {
+                return (
+                    <div className="container">
+                      <div className="btn btn--camera">
+                        <h3 className="title-text">
+                          <Spinner name="cube-grid"/>
+                        </h3>
+                      </div>
+                    </div>
+                ); 
+              } else if (this.state.shirt !== "") {
+                return (
+                  <div className="container">
+                    <div className="btn btn--camera">
+                      <h3 className="title-text">
+                        {this.state.shirt}
+                      </h3>
+                      <button onClick={this.onReset}>Again?</button>
+                    </div>
+                  </div>
+                )
+              }
+            })()
+          }
         </div>
         <input onChange={this.onImage}
                className="hidden"

@@ -5,12 +5,11 @@ html {
 }
 
 h3 {
-  font-family: 'Quicksand', sans-serif;
   font-weight: 500;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
