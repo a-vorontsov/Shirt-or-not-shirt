@@ -13,10 +13,10 @@ export default class App extends Component {
       image: ""
     }
     this.onImage = this.onImage.bind(this);
-    this.getPrediction = this.getPrediction.bind(this);
+    this.getIfShirt = this.getIfShirt.bind(this);
     this.onReset = this.onReset.bind(this);
   }
-  async getPrediction(file) {
+  async getIfShirt(file) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const target = e.target;
@@ -57,7 +57,7 @@ export default class App extends Component {
     event.preventDefault();
     const input = event.currentTarget;
     let file = input.files[0];
-    this.getPrediction(file);
+    this.getIfShirt(file);
   }
   render() {
     return (
@@ -106,7 +106,7 @@ export default class App extends Component {
                       <h3 className="title-text">
                         {this.state.shirt}
                       </h3>
-                      <button onClick={this.onReset}>Again?</button>
+                      <span onClick={this.onReset}>Again?</span>
                     </div>
                   </div>
                 )

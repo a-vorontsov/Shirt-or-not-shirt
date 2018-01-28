@@ -34,3 +34,17 @@
 .btn--camera {
   background-color: #fff;
 }
+
+.btn--camera:hover {
+  background-color: #ddd;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 12px #333;
+  -webkit-box-shadow: 0 4px 12px #333;
+}
+
+.btn:active {
+  box-shadow: 0 2px 6px 0 #333;
+  -webkit-box-shadow: 0 2px 6px 0 #333;
+}
