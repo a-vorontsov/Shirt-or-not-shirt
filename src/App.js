@@ -28,17 +28,17 @@ export default class App extends Component {
       title: false
     });
     const req = request
-      .post('https://southcentralus.api.cognitive.microsoft.com/customvision/v1.1/Prediction/faec218d-a294-4b22-9e35-4dd925c0ba7c/image?iterationId=bebf8572-bd1d-448d-8821-2384294bc375')
+      .post('https://southcentralus.api.cognitive.microsoft.com/customvision/v1.1/Prediction/faec218d-a294-4b22-9e35-4dd925c0ba7c/image')
       .set('Prediction-Key', '143515aaa0e343e1918dce96217a6d34')
       .set("Accept", "application/json")
       .set("Content-type", "multipart/form-data");
     const res = await req.send(file);
     const response = JSON.parse(res.text);
     let prediction;
-    if ((response.Predictions[0].Probability > response.Predictions[1].Probability) && (response.Predictions[0].Probability > 0.5)) {
-      prediction = "Shirt"
+    if ((response.Predictions[0].Tag === "T-shirts") && (response.Predictions[0].Probability > 0.5)) {
+      prediction = `T-Shirt`
     } else {
-      prediction = "Not Shirt"
+      prediction = "Not T-Shirt"
     }
     this.setState({
       shirt: prediction,
