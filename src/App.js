@@ -10,7 +10,8 @@ export default class App extends Component {
       shirt: "",
       spinner: false,
       title: true,
-      image: ""
+      image: "",
+      file: ""
     }
     this.onImage = this.onImage.bind(this);
     this.getIfShirt = this.getIfShirt.bind(this);
