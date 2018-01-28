@@ -129,7 +129,7 @@ export default class App extends Component {
                       <h1 className="title-text not-shirt">
                        Not<br/>T-Shirt 
                       </h1>
-                      <p style={{paddingTop: "8em"}} onClick={this.onReset}>Another one?</p>
+                      <p style={{paddingTop: "2em"}} onClick={this.onReset}>Another one?</p>
                     </div>
                   </div>
                 )
