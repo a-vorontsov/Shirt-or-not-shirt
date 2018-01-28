@@ -3,7 +3,16 @@
 }
 
 .container {
-  height: 100vh;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.title-text {
+  margin: 0;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .btn {
@@ -12,6 +21,8 @@
   height: 50vw;
   border: none;
   border-radius: 5%;
+  text-align: center;
+  box-shadow: 5px 5px 0 #ddd;
 }
 
 .btn--camera {

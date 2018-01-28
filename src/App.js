@@ -6,7 +6,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ""
+      shirt: ""
     }
     this.onImage = this.onImage.bind(this);
     this.getPrediction = this.getPrediction.bind(this);
@@ -21,12 +21,12 @@ export default class App extends Component {
     const response = JSON.parse(res.text);
     let prediction;
     if ((response.Predictions[0].Probability > response.Predictions[1].Probability) && (response.Predictions[0].Probability > 0.5)) {
-      prediction = "Shirt!"
+      prediction = "Shirt"
     } else {
-      prediction = "Not Shirt!"
+      prediction = "Not Shirt"
     }
     this.setState({
-      text: prediction
+      shirt: prediction
     });
   }
   onImage(event) {
@@ -40,14 +40,18 @@ export default class App extends Component {
       <div>
         <div>
           <label htmlFor={"camera"}>
-            <div class="container">
-              <div className="btn btn--camera"></div>
+            <div className="container">
+              <div className="btn btn--camera">
+                <h3 className="title-text">
+                  <img src="https://png.icons8.com/small/50/000000/t-shirt.png"/><br/>OR NOT<br/><img src="https://png.icons8.com/small/50/000000/t-shirt.png"/>
+                </h3>
+              </div>
             </div>
           </label>
-        </div>
         {
-          this.state.text
+          this.state.shirt
         }
+        </div>
         <input onChange={this.onImage}
                className="hidden"
                id="camera"
