@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Confetti from 'react-confetti';
 const request = require('superagent');
 const Spinner = require('react-spinkit');
 
@@ -63,6 +64,17 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: "100%", height: "100%" }}>
+          {
+            (() => {
+              if (this.state.shirt === "T-Shirt") {
+                return (
+                  <Confetti width={window.innerWidth} numberOfPieces={500} height={window.innerHeight}/>
+                )
+              }
+            })()
+          }
+        </div>
         <div>
           {
             (() => {
@@ -95,19 +107,29 @@ export default class App extends Component {
                     <div className="container">
                       <div className="btn btn--camera">
                         <h3 className="title-text">
-                          <Spinner name="cube-grid"/>
+                          <Spinner name="pulse" color="#7044a1"/>
                         </h3>
                       </div>
                     </div>
                 ); 
-              } else if (this.state.shirt !== "") {
+              } else if (this.state.shirt === "T-Shirt") {
                 return (
                   <div className="container">
                     <div className="btn btn--camera">
-                      <h3 className="title-text">
-                        {this.state.shirt}
-                      </h3>
-                      <span onClick={this.onReset}>Again?</span>
+                      <h1 className="title-text shirt">
+                        T-Shirt
+                      </h1>
+                    </div>
+                  </div>
+                )
+              } else if (this.state.shirt === "Not T-Shirt") {
+                return (
+                  <div className="container">
+                    <div className="btn btn--camera">
+                      <h1 className="title-text not-shirt">
+                       Not<br/>T-Shirt 
+                      </h1>
+                      <p style={{paddingTop: "8em"}} onClick={this.onReset}>Another one?</p>
                     </div>
                   </div>
                 )
