@@ -119,6 +119,7 @@ export default class App extends Component {
                       <h1 className="title-text shirt">
                         T-Shirt
                       </h1>
+                      <p style={{paddingTop: "2em"}} onClick={this.onReset}>Another one?</p>
                     </div>
                   </div>
                 )
